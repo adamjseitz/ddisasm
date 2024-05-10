@@ -16,6 +16,7 @@ jobs:
       image_tag: ${{ steps.vars.outputs.image_tag }}
       image_path: ${{ steps.vars.outputs.image_path }}
     steps:
+      - run: lscpu
         # We must generate output variables here in order to ensure the
         # reference is lowercase, even if the repository reference is not
         # (e.g., because of the organization "GrammaTech").
@@ -109,7 +110,7 @@ jobs:
       - run: chmod +x build/bin/*
       - run: mkdir ${HOME}/.wine
       # Run tests
-      - run: cd build && PATH=$(pwd)/bin:$PATH ctest -V
+      - run: lscpu && cd build && PATH=$(pwd)/bin:$PATH ctest -V
   build-pages:
     runs-on: ubuntu-latest
     permissions:
